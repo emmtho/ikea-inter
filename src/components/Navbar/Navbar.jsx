@@ -4,6 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link, Outlet } from 'react-router-dom';
+import './Navbar.css';
 
 export const Navbar = () => {
 
@@ -18,11 +19,11 @@ export const Navbar = () => {
             <Typography variant="h6" component="div">
                 Emmas Shopping Space
             </Typography>
-            <Link to="/">
-                <Button color="inherit">Listing</Button>
+            <Link to="/" className='nav-buttons'>
+                <Button color="inherit">Products</Button>
             </Link>
-            <Link to="/create">
-                <Button color="inherit">Add</Button>
+            <Link to="/create" className='nav-buttons'>
+                <Button color="white">Add Products</Button>
             </Link>
             </Toolbar>
         </AppBar>
