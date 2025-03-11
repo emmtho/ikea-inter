@@ -1,15 +1,16 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Listing } from './components/Listing/Listing';
-import { Navbar } from './components/Navbar/Navbar';
 import { Home } from './components/Home/Home';
+import { Create } from './components/Create/Create';
+import { Navbar } from './components/Navbar/Navbar';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />}>
+        <Route path="/" element={<Navbar />}>
           <Route index element={<Home />} />
+          <Route path="create" element={<Create />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -6,9 +6,6 @@ export const Home = () => {
     return (
         <AppContextProvider>
             <div className="App">
-            <header className="App-header">
-                <Navbar />
-            </header>
             <main>
                 <Listing />
             </main>

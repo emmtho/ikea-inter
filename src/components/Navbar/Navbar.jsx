@@ -3,6 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { Link, Outlet } from 'react-router-dom';
 
 export const Navbar = () => {
 
@@ -11,14 +12,21 @@ export const Navbar = () => {
     };
 
     return (
+        <>
         <AppBar position="static">
             <Toolbar>
             <Typography variant="h6" component="div">
                 Emmas Shopping Space
             </Typography>
-            <Button color="inherit">Listing</Button>
-            <Button color="inherit">Add</Button>
+            <Link to="/">
+                <Button color="inherit">Listing</Button>
+            </Link>
+            <Link to="/create">
+                <Button color="inherit">Add</Button>
+            </Link>
             </Toolbar>
         </AppBar>
+        <Outlet />
+        </>
     );
 };
