@@ -7,11 +7,6 @@ import { Link, Outlet } from 'react-router-dom';
 import './Navbar.css';
 
 export const Navbar = () => {
-
-    const handleClick = () => {
-        console.log('click');
-    };
-
     return (
         <>
         <AppBar position="static">
