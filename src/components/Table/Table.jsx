@@ -1,17 +1,63 @@
-import { useContext } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Chip from '@mui/material/Chip';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    Chip,
+    TableSortLabel,
+    Box
+} from '@mui/material';
 import { useAppContext } from '../../provider/AppContextProvider';
+import { useState } from 'react';
 
 export const TableListing = () => {
     const { products } = useAppContext();
-    
+    const [order, setOrder] = useState('desc');
+    const [orderBy, setOrderBy] = useState('createdOn');
+  
+    const handleRequestSort = (event, property) => {
+      const isAsc = orderBy === property && order === 'asc';
+      setOrder(isAsc ? 'desc' : 'asc');
+      setOrderBy(property);
+    };
+  
+    const sortProducts = (array, comparator) => {
+      const stabilizedArray = array.map((el, index) => [el, index]);
+      stabilizedArray.sort((a, b) => {
+        const orderDiff = comparator(a[0], b[0]);
+        if (orderDiff !== 0) return orderDiff;
+        return a[1] - b[1];
+      });
+      return stabilizedArray.map((el) => el[0]);
+    };
+  
+    const descendingComparator = (a, b, orderBy) => {
+      if (orderBy === 'createdOn') {
+        return new Date(b.createdOn) - new Date(a.createdOn);
+      }
+      return 0;
+    };
+  
+    const ascendingComparator = (a, b, orderBy) => {
+      if (orderBy === 'createdOn') {
+        return new Date(a.createdOn) - new Date(b.createdOn);
+      }
+      return 0;
+    };
+  
+    const comparator = (a, b) => {
+      if (order === 'desc') {
+        return descendingComparator(a, b, orderBy);
+      } else {
+        return ascendingComparator(a, b, orderBy);
+      }
+    };
+  
+    const sortedProducts = sortProducts(products, comparator);
+
     return (
         <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -21,10 +67,19 @@ export const TableListing = () => {
                 <TableCell>Name</TableCell>
                 <TableCell>Product type</TableCell>
                 <TableCell>Colours</TableCell>
+                <TableCell>
+                    <TableSortLabel
+                        active={orderBy === 'createdOn'}
+                        direction={orderBy === 'createdOn' ? order : 'asc'}
+                        onClick={(event) => handleRequestSort(event, 'createdOn')}
+                    >
+                    Created on
+                    </TableSortLabel>
+                </TableCell>
             </TableRow>
             </TableHead>
             <TableBody>
-            {products.map((row) => (
+            {sortedProducts.map((row) => (
                 <TableRow
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -37,6 +92,7 @@ export const TableListing = () => {
                 <TableCell>{row.colours.map((colour) => (
                     <Chip label={colour} />
                 ))}</TableCell>
+                <TableCell>{row.createdOn}</TableCell>
                 </TableRow>
             ))}
             </TableBody>

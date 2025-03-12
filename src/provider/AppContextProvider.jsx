@@ -28,6 +28,7 @@ const AppContextProvider = ({ children }) => {
                 name: product.name,
                 productType: product.productType,
                 colours: product.colours,
+                createdOn: product.createdOn,
             }
         ]);
     };

@@ -19,7 +19,13 @@ export const Create = () => {
     const [colours, setColours] = useState([]);
 
     const onClickButton = () => {
-        saveProductToContext({name: name, productType: productType, colours: colours});
+        saveProductToContext(
+            {
+                name: name,
+                productType: productType,
+                colours: colours,
+                createdOn: new Date().toISOString().split('T')[0]
+            });
     };
 
     useEffect(() => {
