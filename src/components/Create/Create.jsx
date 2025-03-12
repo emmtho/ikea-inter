@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import Grid from "@mui/material/Grid2";
 import { 
     TextField,
@@ -6,9 +7,11 @@ import {
     Button
 } from '@mui/material';
 import { useEffect, useState } from "react";
-import jsonData from "../../products.json";
+import jsonData from "../../data.json";
+import { useAppContext } from '../../provider/AppContextProvider';
 
 export const Create = () => {
+    const { saveProductToContext } = useAppContext();
     const [productTypeOptions, setProductTypeOptions] = useState(jsonData.productTypes);
     const [colourOptions, setColourOptions] = useState(jsonData.colours);
     const [name, setName] = useState();
@@ -16,7 +19,7 @@ export const Create = () => {
     const [colours, setColours] = useState([]);
 
     const onClickButton = () => {
-        // Here we need to save to Context
+        saveProductToContext({name: name, productType: productType, colours: colours});
     };
 
     useEffect(() => {

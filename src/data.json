@@ -1,32 +1,4 @@
 {
-    "products": [
-        {
-            "id": 0,
-            "name": "Vimle",
-            "productType": "Sofa",
-            "colours": ["Orange", "Olive"]
-        },{
-            "id": 1,
-            "name": "Tossberg",
-            "productType": "Chair",
-            "colours": ["Purple", "Forest Green"]
-        },{
-            "id": 2,
-            "name": "Melltorp",
-            "productType": "Dining Table",
-            "colours": ["Cream", "Coral"]
-        },{
-            "id": 3,
-            "name": "Kleppstad",
-            "productType": "Wardrobe",
-            "colours": ["Coral", "Beige", "Olive"]
-        },{
-            "id": 4,
-            "name": "Micke",
-            "productType": "Desk",
-            "colours": ["Cream", "Lilac", "Red"]
-        }
-    ],
     "colours": [
         "Red",
         "Blue",

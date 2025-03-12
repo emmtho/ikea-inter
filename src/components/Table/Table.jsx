@@ -7,13 +7,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Chip from '@mui/material/Chip';
-import jsonData from '../../products.json';
-import { AppContext } from '../../provider/AppContextProvider';
+import { useAppContext } from '../../provider/AppContextProvider';
 
 export const TableListing = () => {
-    const { products } = useContext(AppContext);
-    // const [products, setProducts] = useState(jsonData.products);
-    console.log('jsonData', jsonData);
+    const { products } = useAppContext();
     
     return (
         <TableContainer component={Paper}>

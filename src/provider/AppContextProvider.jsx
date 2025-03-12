@@ -1,16 +1,46 @@
-import React, { createContext, useState } from 'react';
-import jsonData from '../products.json';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
-const AppContext = createContext();
+const ContextType = {
+    products: []
+};
+
+const AppContext = createContext(ContextType);
 
 const AppContextProvider = ({ children }) => {
-    const [products, setProducts] = useState(jsonData.products);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          const response = await fetch('../products.json');
+          const jsonData = await response.json();
+          setProducts(jsonData);
+        };
+        
+        fetchData();
+    }, []);
+    
+
+    const saveProductToContext = (product) => {
+        setProducts((prevProducts) => [
+            ...prevProducts,
+            {
+                id: products.length,
+                name: product.name,
+                productType: product.productType,
+                colours: product.colours,
+            }
+        ]);
+    };
   
     return (
-      <AppContext.Provider value={{ products, setProducts }}>
+      <AppContext.Provider value={{ products, setProducts, saveProductToContext }}>
         {children}
       </AppContext.Provider>
     );
   };
 
-  export { AppContext, AppContextProvider };
+  export default AppContextProvider;
+
+  export const useAppContext = () => {
+    return useContext(AppContext);
+  };
