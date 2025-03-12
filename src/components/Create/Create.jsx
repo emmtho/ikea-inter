@@ -1,10 +1,10 @@
-import { useContext } from 'react';
 import Grid from "@mui/material/Grid2";
 import { 
     TextField,
     FormControl,
     Autocomplete,
-    Button
+    Button,
+    Typography
 } from '@mui/material';
 import { useEffect, useState } from "react";
 import jsonData from "../../data.json";
@@ -14,9 +14,10 @@ export const Create = () => {
     const { saveProductToContext } = useAppContext();
     const [productTypeOptions, setProductTypeOptions] = useState(jsonData.productTypes);
     const [colourOptions, setColourOptions] = useState(jsonData.colours);
-    const [name, setName] = useState();
-    const [productType, setProductType] = useState();
+    const [name, setName] = useState('');
+    const [productType, setProductType] = useState('');
     const [colours, setColours] = useState([]);
+    const [success, setSuccess] = useState(false);
 
     const onClickButton = () => {
         saveProductToContext(
@@ -26,6 +27,10 @@ export const Create = () => {
                 colours: colours,
                 createdOn: new Date().toISOString().split('T')[0]
             });
+        setName('');
+        setProductType("");
+        setColours([]);
+        setSuccess(true);
     };
 
     useEffect(() => {
@@ -34,14 +39,15 @@ export const Create = () => {
       }, []);
 
     return (
+        <>
         <Grid container>
             <Grid item size={2}></Grid>
             <Grid item size={8}>
-                <h2>Create a new product</h2>
+                <Typography variant="h4">Create a new product</Typography>
                 <FormControl fullWidth>
                 <TextField
                     required
-                    id="Name"
+                    id="name"
                     label="Name"
                     value={name}
                     onChange={(event) => {
@@ -89,5 +95,17 @@ export const Create = () => {
             </Grid>
             <Grid item size={2}></Grid>
         </Grid>
+        <Grid container>
+            <Grid item size={2}></Grid>
+            <Grid item size={8}>
+            {success && (
+                    <Typography variant="h6">
+                    Product got added to list. 
+                  </Typography>
+                )}
+            </Grid>
+            <Grid item size={2}></Grid>
+        </Grid>
+        </>
     );
 };
