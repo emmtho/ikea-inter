@@ -7,8 +7,7 @@ import {
     TableRow,
     Paper,
     Chip,
-    TableSortLabel,
-    Box
+    TableSortLabel
 } from '@mui/material';
 import { useAppContext } from '../../provider/AppContextProvider';
 import { useState } from 'react';
